@@ -1,0 +1,22 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       ">
+
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+
+    <bean id="playTransportFactory" class="org.apache.cxf.transport.play.PlayTransportFactory" lazy-init="false">
+        <property name="transportIds">
+            <list>
+                <value>http://cxf.apache.org/transports/play</value>
+                <value>http://schemas.xmlsoap.org/soap/http</value>
+                <value>http://schemas.xmlsoap.org/wsdl/soap/http</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.apache.cxf.transport.play.CxfController" factory-method="getInstance">
+        <property name="transportFactory" ref="playTransportFactory" />
+    </bean>
+</beans>
