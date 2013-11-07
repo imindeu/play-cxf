@@ -8,4 +8,12 @@ libraryDependencies ++= Seq(
   cache
 )     
 
+libraryDependencies += "org.springframework" % "spring-context" % "3.2.4.RELEASE"
+
+libraryDependencies += "eu.imind" %% "play-cxf" % "1.0"
+
+libraryDependencies += "org.apache.cxf" % "cxf-rt-bindings-soap" % "2.7.7"
+
+libraryDependencies += "org.apache.cxf" % "cxf-rt-frontend-jaxws" % "2.7.7"
+
 play.Project.playScalaSettings
