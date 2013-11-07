@@ -9,4 +9,9 @@
     <!-- Import Apache CXF configuration and Play! transport plugin. -->
     <import resource="classpath:cxf.xml"/>
 
+    <!-- Define Hello World endpoint. It will be available at http://localhost:9000/service/hello -->
+    <jaxws:endpoint name="helloWorld"
+                    address="play://localhost:9000/service/hello"
+                    implementor="services.hello.HelloWorldImpl"/>
+
 </beans>
