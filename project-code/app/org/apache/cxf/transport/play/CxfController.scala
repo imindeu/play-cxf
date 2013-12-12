@@ -4,7 +4,7 @@ import java.io.{ByteArrayInputStream, InputStream, OutputStream}
 
 import org.apache.cxf.message.{MessageImpl, Message}
 
-import play.api.libs.concurrent.Execution.Implicits._
+import scala.concurrent.ExecutionContext.Implicits._
 import play.api.libs.iteratee.Enumerator
 import play.api.mvc._
 
@@ -25,18 +25,20 @@ object CxfController extends Controller {
 
   val maxRequestSize = 1024 * 1024
 
-  def handle(path: String) = Action.async(parse.raw(maxRequestSize)) { implicit request =>
-    val delayedOutput = new DelayedOutputStream
-    val replyPromise: Promise[Message] = Promise.apply()
-    dispatchMessage(extractMessage, delayedOutput, replyPromise)
+  def handle(path: String) = Action(parse.raw(maxRequestSize)) { implicit request =>
+    Async {
+      val delayedOutput = new DelayedOutputStream
+      val replyPromise: Promise[Message] = Promise.apply()
+      dispatchMessage(extractMessage, delayedOutput, replyPromise)
 
-    val resultEnumerator = Enumerator.outputStream { os =>
-      delayedOutput.setTarget(os)
-    }
-    replyPromise.future.map { outMessage =>
-      Ok.chunked(resultEnumerator >>> Enumerator.eof) withHeaders(
-        Message.CONTENT_TYPE -> outMessage.get(Message.CONTENT_TYPE).asInstanceOf[String]
-      )
+      val resultEnumerator = Enumerator.outputStream { os =>
+        delayedOutput.setTarget(os)
+      }
+      replyPromise.future.map { outMessage =>
+        Ok.stream(resultEnumerator >>> Enumerator.eof) withHeaders(
+          Message.CONTENT_TYPE -> outMessage.get(Message.CONTENT_TYPE).asInstanceOf[String]
+        )
+      }
     }
   }
 
