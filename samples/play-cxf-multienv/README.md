@@ -1,5 +1,5 @@
-Play! framework module for Apache CXF - Hello World sample
-==========================================================
+Play! framework module for Apache CXF - MultiEnv sample
+=======================================================
 
 This sample demonstrates using development, test and production environments with different Play configurations and different endpoint URLs:
 * for development: http://localhost:9000/service/hello
