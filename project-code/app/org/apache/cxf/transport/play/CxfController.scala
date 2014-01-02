@@ -76,7 +76,8 @@ object CxfController extends Controller {
       case Some(destination) =>
         destination.dispatchMessage(inMessage, output, replyPromise)
       case _ =>
-        replyPromise.failure(new IllegalArgumentException)
+        replyPromise.failure(new IllegalArgumentException("Destination not found: [" + endpointAddress +
+          "] " + transportFactory.getDestinationsDebugInfo))
     }
   }
 

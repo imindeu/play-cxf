@@ -107,6 +107,21 @@ public class PlayTransportFactory extends AbstractTransportFactory
         destinations.remove(destination.getFactoryKey(), destination);
     }
 
+    public String getDestinationsDebugInfo() {
+        StringBuilder debugInfo = new StringBuilder("Available destinations: [");
+        boolean first = true;
+        for (String destKey : destinations.keySet()) {
+            if (first) {
+                first = false;
+            } else {
+                debugInfo.append(", ");
+            }
+            debugInfo.append(destKey);
+        }
+        debugInfo.append("]");
+        return debugInfo.toString();
+    }
+
     @Override
     public Conduit getConduit(EndpointInfo localInfo, EndpointReferenceType target) throws IOException {
         throw new UnsupportedOperationException("Play! Transport doesn't support client operation mode!");
