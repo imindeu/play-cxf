@@ -44,7 +44,6 @@ object CxfController extends Controller {
 
   private def extractMessage()(implicit request: Request[RawBuffer]) = {
     val msg: Message = new MessageImpl
-    msg.put(Message.ENDPOINT_ADDRESS, endpointAddress)
     msg.put(Message.HTTP_REQUEST_METHOD, request.method)
     msg.put(Message.REQUEST_URL, request.path)
     msg.put(Message.QUERY_STRING, request.rawQueryString)
@@ -71,10 +70,13 @@ object CxfController extends Controller {
                               replyPromise: Promise[Message])
                              (implicit request: Request[RawBuffer]) {
 
-    val dOpt = Option(transportFactory.getDestination(endpointAddress))
+    val dOpt = Option(transportFactory.getDestination(endpointAddress)).orElse(
+        Option(transportFactory.getDestination(request.path)))
     dOpt match {
-      case Some(destination) =>
+      case Some(destination) => {
+        inMessage.put(Message.ENDPOINT_ADDRESS, destination.getFactoryKey)
         destination.dispatchMessage(inMessage, output, replyPromise)
+      }
       case _ =>
         replyPromise.failure(new IllegalArgumentException("Destination not found: [" + endpointAddress +
           "] " + transportFactory.getDestinationsDebugInfo))
