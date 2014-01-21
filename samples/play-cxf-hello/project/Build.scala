@@ -11,7 +11,7 @@ object ApplicationBuild extends Build {
     jdbc,
     anorm,
     "org.springframework" % "spring-context" % "3.2.4.RELEASE",
-    "eu.imind" %% "play-cxf" % "1.0",
+    "eu.imind" %% "play-cxf" % "1.1",
     "org.apache.cxf" % "cxf-rt-bindings-soap" % "2.7.7",
     "org.apache.cxf" % "cxf-rt-frontend-jaxws" % "2.7.7"
   )

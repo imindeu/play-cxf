@@ -5,7 +5,7 @@ import play.Project._
 object ApplicationBuild extends Build {
 
   val appName = "play-cxf"
-  val appVersion = "1.0"
+  val appVersion = "1.1"
 
   val appDependencies = Seq(
     "org.springframework" % "spring-context" % "[3.2.0.RELEASE,)",
