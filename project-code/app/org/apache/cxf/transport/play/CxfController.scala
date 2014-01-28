@@ -48,6 +48,7 @@ object CxfController extends Controller {
     msg.put(Message.PROTOCOL_HEADERS, headersAsJava)
     msg.put(Message.CONTENT_TYPE, request.headers.get(Message.CONTENT_TYPE) getOrElse null)
     msg.put(Message.ACCEPT_CONTENT_TYPE, request.headers.get(Message.ACCEPT_CONTENT_TYPE) getOrElse null)
+    msg.put("Remote-Address", request.remoteAddress)
 
     request.body.asBytes() foreach { arr: Array[Byte] =>
       msg.setContent(classOf[InputStream], new ByteArrayInputStream(arr))
