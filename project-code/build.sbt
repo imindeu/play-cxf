@@ -16,6 +16,8 @@ organizationHomepage := Some(url("http://imind.eu/"))
 
 version := "1.1.0"
 
+crossScalaVersions := Seq("2.10.4", "2.11.2")
+
 libraryDependencies += "org.springframework" % "spring-context" % "[3.2.0.RELEASE,)"
 
 libraryDependencies += "org.apache.cxf" % "cxf-api" % "2.7.7"
@@ -57,4 +59,4 @@ publishTo := {
     Some("releases" at nexus + "service/local/staging/deploy/maven2")
 }
 
-play.Project.playScalaSettings
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
