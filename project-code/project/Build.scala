@@ -12,7 +12,7 @@ object ApplicationBuild extends Build {
   }
 
   val appName = "play-cxf_play" + playVersionSuffix
-  val appVersion = "1.1.0"
+  val appVersion = "1.1.1"
 
   val appDependencies = Seq(
     "org.springframework" % "spring-context" % "[3.2.0.RELEASE,)",
@@ -24,6 +24,7 @@ object ApplicationBuild extends Build {
     organization := "eu.imind.play",
     organizationName := "iMind",
     organizationHomepage := Some(url("http://imind.eu/")),
+    javacOptions ++= Seq("-source", "1.6", "-target", "1.6"),
     publishMavenStyle := true,
     publishArtifact in Test := false,
     pomIncludeRepository := { _ => false },
