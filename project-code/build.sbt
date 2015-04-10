@@ -14,7 +14,7 @@ organizationName := "iMind"
 
 organizationHomepage := Some(url("http://imind.eu/"))
 
-version := "1.1.0"
+version := "1.1.1"
 
 crossScalaVersions := Seq("2.10.4", "2.11.2")
 
@@ -23,6 +23,8 @@ libraryDependencies += "org.springframework" % "spring-context" % "[3.2.0.RELEAS
 libraryDependencies += "org.apache.cxf" % "cxf-api" % "2.7.7"
 
 libraryDependencies += "org.apache.cxf" % "cxf-rt-core" % "2.7.7"
+
+javacOptions ++= Seq("-source", "1.6", "-target", "1.6")
 
 publishMavenStyle := true
 
