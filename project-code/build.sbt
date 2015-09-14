@@ -22,8 +22,6 @@ libraryDependencies += "org.springframework" % "spring-context" % "[4.1.6.RELEAS
 
 libraryDependencies += "org.apache.cxf" % "cxf-core" % "3.1.2"
 
-javacOptions ++= Seq("-source", "1.6", "-target", "1.6")
-
 publishMavenStyle := true
 
 publishArtifact in Test := false
