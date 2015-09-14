@@ -11,7 +11,7 @@
 
     <!-- Define Hello World endpoint. It will be available at http://localhost:9000/service/hello -->
     <jaxws:endpoint name="helloWorld"
-                    transportId="http://cxf.apache.org/transports/play"
+                    transportId="http://schemas.xmlsoap.org/soap/http"
                     address="/service/hello"
                     implementor="services.hello.HelloWorldImpl"/>
 
