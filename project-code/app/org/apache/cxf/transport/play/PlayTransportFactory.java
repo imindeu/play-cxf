@@ -27,11 +27,9 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.apache.cxf.Bus;
 import org.apache.cxf.service.model.EndpointInfo;
-import org.apache.cxf.transport.AbstractTransportFactory;
-import org.apache.cxf.transport.Conduit;
-import org.apache.cxf.transport.ConduitInitiator;
-import org.apache.cxf.transport.DestinationFactory;
+import org.apache.cxf.transport.*;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.apache.cxf.wsdl.http.AddressType;
@@ -56,8 +54,8 @@ public class PlayTransportFactory extends AbstractTransportFactory
     }
 
     @Override
-    public PlayDestination getDestination(EndpointInfo ei) throws IOException {
-        return getDestination(ei, createReference(ei));
+    public Destination getDestination(EndpointInfo ei, Bus bus) throws IOException {
+        return getDestination(ei, createReference(ei), bus);
     }
 
     EndpointReferenceType createReference(EndpointInfo ei) {
@@ -68,11 +66,11 @@ public class PlayTransportFactory extends AbstractTransportFactory
         return epr;
     }
 
-    protected PlayDestination getDestination(EndpointInfo ei, EndpointReferenceType reference) throws IOException {
+    protected PlayDestination getDestination(EndpointInfo ei, EndpointReferenceType reference, Bus bus) throws IOException {
         final String factoryKey = computeFactoryKey(ei, reference);
         PlayDestination d = destinations.get(factoryKey);
         if (d == null) {
-            d = new PlayDestination(this, factoryKey, reference, ei, getBus());
+            d = new PlayDestination(this, factoryKey, reference, ei, bus);
             PlayDestination tmpD = destinations.putIfAbsent(factoryKey, d);
             if (tmpD != null) {
                 d = tmpD;
@@ -123,12 +121,12 @@ public class PlayTransportFactory extends AbstractTransportFactory
     }
 
     @Override
-    public Conduit getConduit(EndpointInfo localInfo, EndpointReferenceType target) throws IOException {
+    public Conduit getConduit(EndpointInfo targetInfo, Bus bus) throws IOException {
         throw new UnsupportedOperationException("Play! Transport doesn't support client operation mode!");
     }
 
     @Override
-    public Conduit getConduit(EndpointInfo targetInfo) throws IOException {
+    public Conduit getConduit(EndpointInfo localInfo, EndpointReferenceType target, Bus bus) throws IOException {
         throw new UnsupportedOperationException("Play! Transport doesn't support client operation mode!");
     }
 }

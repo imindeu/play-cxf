@@ -14,15 +14,13 @@ organizationName := "iMind"
 
 organizationHomepage := Some(url("http://imind.eu/"))
 
-version := "1.1.1"
+version := "1.2.0"
 
-crossScalaVersions := Seq("2.10.4", "2.11.2")
+crossScalaVersions := Seq("2.10.5", "2.11.7")
 
-libraryDependencies += "org.springframework" % "spring-context" % "[3.2.0.RELEASE,)"
+libraryDependencies += "org.springframework" % "spring-context" % "[4.1.6.RELEASE,)"
 
-libraryDependencies += "org.apache.cxf" % "cxf-api" % "2.7.7"
-
-libraryDependencies += "org.apache.cxf" % "cxf-rt-core" % "2.7.7"
+libraryDependencies += "org.apache.cxf" % "cxf-core" % "3.1.2"
 
 javacOptions ++= Seq("-source", "1.6", "-target", "1.6")
 
