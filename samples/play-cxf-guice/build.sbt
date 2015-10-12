@@ -1,4 +1,4 @@
-name := "play-cxf-multienv"
+name := "play-cxf-guice"
 
 version := "1.0-SNAPSHOT"
 
@@ -11,5 +11,7 @@ libraryDependencies += "eu.imind.play" %% "play-cxf_play24" % "1.2.1"
 libraryDependencies += "org.apache.cxf" % "cxf-rt-bindings-soap" % "3.1.2"
 
 libraryDependencies += "org.apache.cxf" % "cxf-rt-frontend-jaxws" % "3.1.2"
+
+routesGenerator := InjectedRoutesGenerator
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)

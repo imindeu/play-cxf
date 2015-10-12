@@ -14,7 +14,7 @@ organizationName := "iMind"
 
 organizationHomepage := Some(url("http://imind.eu/"))
 
-version := "1.2.0"
+version := "1.2.1"
 
 crossScalaVersions := Seq("2.10.5", "2.11.7")
 

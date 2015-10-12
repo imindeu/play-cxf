@@ -11,17 +11,7 @@ import play.api.mvc._
 import scala.concurrent.Promise
 import scala.collection.JavaConverters._
 
-object CxfController extends Controller {
-
-  /**
-   * Factory method for Spring.
-   */
-  def getInstance() = this
-
-  /**
-   * Apache CXF transport factory, set by Spring.
-   */
-  var transportFactory: PlayTransportFactory = null
+class CxfController extends Controller {
 
   val maxRequestSize = 1024 * 1024
 
@@ -69,6 +59,7 @@ object CxfController extends Controller {
                               replyPromise: Promise[Message])
                              (implicit request: Request[RawBuffer]) {
 
+    val transportFactory = CxfController.transportFactory
     val dOpt = Option(transportFactory.getDestination(endpointAddress)).orElse(
         Option(transportFactory.getDestination(request.path)))
     dOpt match {
@@ -81,6 +72,20 @@ object CxfController extends Controller {
           "] " + transportFactory.getDestinationsDebugInfo))
     }
   }
+
+}
+
+object CxfController extends CxfController {
+
+  /**
+   * Factory method for Spring.
+   */
+  def getInstance() = this
+
+  /**
+   * Apache CXF transport factory, set by Spring.
+   */
+  var transportFactory: PlayTransportFactory = null
 
   def setTransportFactory(factory: PlayTransportFactory) {
     this.transportFactory = factory
