@@ -1,0 +1,28 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+       ">
+
+    <!-- Import Apache CXF configuration and Play! transport plugin. -->
+    <import resource="classpath:cxf.xml"/>
+
+    <!-- WORKAROUND for having an SOAP client and a service in the same project. This will likely change in a future
+         version. -->
+    <bean id="playTransportFactory" class="org.apache.cxf.transport.play.PlayTransportFactory" lazy-init="false">
+        <property name="transportIds">
+            <list>
+                <value>http://cxf.apache.org/transports/play</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Define Hello World endpoint. It will be available at http://localhost:9000/service/hello -->
+    <jaxws:endpoint name="helloWorld"
+                    transportId="http://cxf.apache.org/transports/play"
+                    address="/service/hello"
+                    implementor="services.hello.HelloWorldImpl" />
+
+</beans>
