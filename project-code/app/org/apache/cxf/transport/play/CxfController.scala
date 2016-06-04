@@ -34,6 +34,7 @@ class CxfController extends Controller {
     val msg: Message = new MessageImpl
     msg.put(Message.HTTP_REQUEST_METHOD, request.method)
     msg.put(Message.REQUEST_URL, request.path)
+    msg.put(Message.REQUEST_URI, request.uri)
     msg.put(Message.QUERY_STRING, request.rawQueryString)
     msg.put(Message.PROTOCOL_HEADERS, headersAsJava)
     msg.put(Message.CONTENT_TYPE, request.headers.get(Message.CONTENT_TYPE) getOrElse null)
