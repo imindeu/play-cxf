@@ -81,6 +81,11 @@ public class PlayTransportFactory extends AbstractTransportFactory
     }
 
     public PlayDestination getDestination(String endpointAddress) {
+        for (java.util.Map.Entry<String, PlayDestination> e: destinations.entrySet()) {
+          if (endpointAddress.startsWith(e.getKey())) {
+            return e.getValue();
+          }
+        }
         return destinations.get(endpointAddress);
     }
 
