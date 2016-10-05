@@ -14,11 +14,11 @@ organizationName := "iMind"
 
 organizationHomepage := Some(url("http://imind.eu/"))
 
-version := "1.2.0"
+version := "1.3.0"
 
-crossScalaVersions := Seq("2.10.5", "2.11.7")
+scalaVersion := "2.11.7"
 
-libraryDependencies += "org.springframework" % "spring-context" % "[4.1.6.RELEASE,)"
+libraryDependencies += "org.springframework" % "spring-context" % "[4.3.3.RELEASE,)"
 
 libraryDependencies += "org.apache.cxf" % "cxf-core" % "3.1.2"
 
@@ -54,7 +54,7 @@ publishTo := {
   if (isSnapshot.value)
     Some("snapshots" at nexus + "content/repositories/snapshots")
   else
-    Some("releases" at nexus + "service/local/staging/deploy/maven2")
+    Some("rs" at nexus + "service/local/staging/deploy/maven2")
 }
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)

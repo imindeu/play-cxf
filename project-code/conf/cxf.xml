@@ -16,7 +16,7 @@
         </property>
     </bean>
 
-    <bean class="org.apache.cxf.transport.play.CxfController" factory-method="getInstance">
+    <bean class="org.apache.cxf.transport.play.CxfModule" factory-method="getCxfControllerInstance">
         <property name="transportFactory" ref="playTransportFactory" />
     </bean>
 </beans>

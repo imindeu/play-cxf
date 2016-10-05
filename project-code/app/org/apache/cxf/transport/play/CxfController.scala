@@ -2,21 +2,27 @@ package org.apache.cxf.transport.play
 
 import java.io.{ByteArrayInputStream, InputStream, OutputStream}
 
+import akka.stream.scaladsl.Source
+import akka.util.ByteString
+import com.google.inject.Singleton
 import org.apache.cxf.message.{MessageImpl, Message}
+import org.springframework.beans.factory.FactoryBean
 
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.iteratee.Enumerator
+import play.api.libs.streams.Streams
 import play.api.mvc._
 
 import scala.concurrent.Promise
 import scala.collection.JavaConverters._
 
-object CxfController extends Controller {
+@Singleton
+class CxfController extends Controller with FactoryBean[CxfController] {
 
-  /**
-   * Factory method for Spring.
-   */
-  def getInstance() = this
+
+  def getObjectType: Class[_ <: CxfController] = this.getClass
+  def getObject: CxfController = this
+  def isSingleton: Boolean = true
 
   /**
    * Apache CXF transport factory, set by Spring.
@@ -34,7 +40,8 @@ object CxfController extends Controller {
       delayedOutput.setTarget(os)
     }
     replyPromise.future.map { outMessage =>
-      Ok.chunked(resultEnumerator >>> Enumerator.eof) withHeaders(
+      val enumerator = resultEnumerator >>> Enumerator.eof
+      Ok.chunked(Source.fromPublisher(Streams.enumeratorToPublisher(enumerator))) withHeaders(
         Message.CONTENT_TYPE -> outMessage.get(Message.CONTENT_TYPE).asInstanceOf[String]
       )
     }
@@ -50,8 +57,8 @@ object CxfController extends Controller {
     msg.put(Message.ACCEPT_CONTENT_TYPE, request.headers.get(Message.ACCEPT_CONTENT_TYPE) getOrElse null)
     msg.put("Remote-Address", request.remoteAddress)
 
-    request.body.asBytes() foreach { arr: Array[Byte] =>
-      msg.setContent(classOf[InputStream], new ByteArrayInputStream(arr))
+    request.body.asBytes() foreach { byteString: ByteString =>
+      msg.setContent(classOf[InputStream], new ByteArrayInputStream(byteString.toArray))
     }
 
     msg
