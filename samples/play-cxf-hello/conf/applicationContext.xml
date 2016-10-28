@@ -6,13 +6,13 @@
         http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
        ">
 
-    <!-- Import Apache CXF configuration and Play! transport plugin. -->
-    <import resource="classpath:cxf.xml"/>
-
     <!-- Define Hello World endpoint. It will be available at http://localhost:9000/service/hello -->
     <jaxws:endpoint name="helloWorld"
-                    transportId="http://schemas.xmlsoap.org/soap/http"
-                    address="/service/hello"
-                    implementor="services.hello.HelloWorldImpl"/>
+        transportId="http://schemas.xmlsoap.org/soap/http"
+        address="/service/hello"
+        implementor="services.hello.HelloWorldImpl"/>
+
+    <!-- Import Apache CXF configuration and Play! transport plugin. -->
+    <import resource="classpath:cxf.xml"/>
 
 </beans>
