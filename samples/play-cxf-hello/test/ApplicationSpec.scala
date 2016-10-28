@@ -1,9 +1,10 @@
 import org.specs2.mutable._
 import org.specs2.runner._
 import org.junit.runner._
-
 import play.api.test._
 import play.api.test.Helpers._
+
+import scala.concurrent.Await
 
 /**
  * Add your spec here.
@@ -28,5 +29,6 @@ class ApplicationSpec extends Specification {
       contentType(home) must beSome.which(_ == "text/html")
       contentAsString(home) must contain ("Your new application is ready.")
     }
+
   }
 }
