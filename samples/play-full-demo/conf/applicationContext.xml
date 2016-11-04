@@ -1,0 +1,24 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+       ">
+
+    <jaxws:endpoint name="coffeeMachine"
+        transportId="http://schemas.xmlsoap.org/soap/http"
+        address="/service/coffee"
+        implementor="#ServiceImplBean"/>
+
+    <bean id="ServiceImplBean"
+          class="services.coffee.CoffeeServiceImpl"
+          scope="singleton"/>
+
+    <!--<jaxws:properties>
+        <entry key="schema-validation-enabled" value="false"/>
+    </jaxws:properties>-->
+
+    <import resource="classpath:cxf.xml"/>
+
+</beans>
