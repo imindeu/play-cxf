@@ -30,7 +30,7 @@ class CoffeeServiceImplTest extends FlatSpec with Matchers with MockFactory {
     (service.heater.boilWater _).expects(water).once
     (service.beanContainer.groundCoffee _).expects(*).once
     
-    service.makeCoffee(Type.Espresso) should be (Coffee(Type.Espresso))
+    service.makeCoffee("Espresso") should be (Coffee(Type.Espresso).toString)
   }
 
   it should "make an doppio" in new Spec {
@@ -40,7 +40,17 @@ class CoffeeServiceImplTest extends FlatSpec with Matchers with MockFactory {
     (service.heater.boilWater _).expects(water).once
     (service.beanContainer.groundCoffee _).expects(*).twice
 
-    service.makeCoffee(Type.Doppio) should be (Coffee(Type.Doppio))
+    service.makeCoffee("Doppio") should be (Coffee(Type.Doppio).toString)
+  }
+
+  it should "throw NoSuchElementException for not known coffee type" in new Spec {
+    (service.waterContainer.getWater _).expects().never
+    (service.heater.boilWater _).expects(*).never
+    (service.beanContainer.groundCoffee _).expects(*).never
+
+    a [NoSuchElementException] should be thrownBy {
+      service.makeCoffee("NotKnownCoffeeType")
+    }
   }
 
   it should "throw UninitializedFieldError exception when one of the dependencies is null" in new Spec {
@@ -57,11 +67,11 @@ class CoffeeServiceImplTest extends FlatSpec with Matchers with MockFactory {
       service.waterContainer = waterContainer
 
       a [UninitializedFieldError] should be thrownBy {
-        service.makeCoffee(Type.Espresso)
+        service.makeCoffee("Espresso")
       }
 
       a [UninitializedFieldError] should be thrownBy {
-        service.makeCoffee(Type.Doppio)
+        service.makeCoffee("Doppio")
       }
     }
   }

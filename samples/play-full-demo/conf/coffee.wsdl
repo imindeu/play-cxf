@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        xmlns:tns="http://coffee.services/"
+        xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+        targetNamespace="http://coffee.services/"
+        name="CoffeeService">
+
+    <wsdl:types>
+
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://coffee.services/" elementFormDefault="unqualified" targetNamespace="http://coffee.services/" version="1.0">
+
+            <xs:element name="makeCoffee" type="xs:string"/>
+
+            <xs:element name="makeCoffeeResponse" type="xs:string"/>
+
+        </xs:schema>
+    </wsdl:types>
+
+    <wsdl:message name="makeCoffee">
+        <wsdl:part element="tns:makeCoffee" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="makeCoffeeResponse">
+        <wsdl:part element="tns:makeCoffeeResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:portType name="CoffeeService">
+        <wsdl:operation name="makeCoffee">
+            <wsdl:input message="tns:makeCoffee" name="makeCoffee"/>
+            <wsdl:output message="tns:makeCoffeeResponse" name="makeCoffeeResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="CoffeeServiceSoapBinding" type="tns:CoffeeService">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+
+        <wsdl:operation name="makeCoffee">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="makeCoffee">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="makeCoffeeResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="CoffeeService">
+        <wsdl:port name="CoffeeServicePort" binding="tns:CoffeeServiceSoapBinding"/>
+    </wsdl:service>
+
+</wsdl:definitions>

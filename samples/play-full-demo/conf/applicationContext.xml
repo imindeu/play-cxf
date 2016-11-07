@@ -6,9 +6,12 @@
         http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
        ">
 
-    <jaxws:endpoint name="coffeeMachine"
+    <jaxws:endpoint
+        name="coffeeMachine"
+        wsdlLocation="coffee.wsdl"
         transportId="http://schemas.xmlsoap.org/soap/http"
         address="/service/coffee"
+        publishedEndpointUrl="/service/coffee"
         implementor="#ServiceImplBean"/>
 
     <bean id="ServiceImplBean"

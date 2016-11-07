@@ -10,6 +10,7 @@ libraryDependencies ++= Seq(
   "org.apache.cxf" % "cxf-rt-frontend-jaxws" % "3.1.2",
   "org.springframework" % "spring-context" % "4.3.3.RELEASE",
   "net.codingwell" %% "scala-guice" % "4.1.0",
+  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % "test",
   "org.scalactic" %% "scalactic" % "2.2.6",
   "org.scalatest" %% "scalatest" % "2.2.6" % "test",
   "org.scalamock" %% "scalamock-scalatest-support" % "3.2.2" % "test"
