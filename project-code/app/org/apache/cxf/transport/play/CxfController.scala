@@ -4,13 +4,13 @@ import java.io.{ByteArrayInputStream, InputStream, OutputStream}
 
 import akka.stream.scaladsl.Source
 import akka.util.ByteString
-import com.google.inject.Singleton
-import org.apache.cxf.message.{MessageImpl, Message}
-import org.springframework.beans.factory.FactoryBean
+import javax.inject.Singleton
 
+import org.apache.cxf.message.{Message, MessageImpl}
+import org.springframework.beans.factory.FactoryBean
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.iteratee.Enumerator
-import play.api.libs.streams.Streams
+import play.api.libs.iteratee.streams.IterateeStreams
 import play.api.mvc._
 
 import scala.concurrent.Promise
@@ -22,7 +22,7 @@ class CxfController extends Controller with FactoryBean[CxfController] {
 
   def getObjectType: Class[_ <: CxfController] = this.getClass
   def getObject: CxfController = this
-  def isSingleton: Boolean = true
+  override def isSingleton: Boolean = true
 
   /**
    * Apache CXF transport factory, set by Spring.
@@ -41,7 +41,7 @@ class CxfController extends Controller with FactoryBean[CxfController] {
     }
     replyPromise.future.map { outMessage =>
       val enumerator = resultEnumerator >>> Enumerator.eof
-      Ok.chunked(Source.fromPublisher(Streams.enumeratorToPublisher(enumerator))) withHeaders(
+      Ok.chunked(Source.fromPublisher(IterateeStreams.enumeratorToPublisher(enumerator))) withHeaders(
         Message.CONTENT_TYPE -> outMessage.get(Message.CONTENT_TYPE).asInstanceOf[String]
       )
     }
