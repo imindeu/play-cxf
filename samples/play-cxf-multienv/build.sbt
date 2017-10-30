@@ -2,11 +2,11 @@ name := "play-cxf-multienv"
 
 version := "1.0-SNAPSHOT"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.12.3"
 
-libraryDependencies += "org.springframework" % "spring-context" % "4.3.3.RELEASE"
+libraryDependencies += "org.springframework" % "spring-context" % "5.0.1.RELEASE"
 
-libraryDependencies += "eu.imind.play" %% "play-cxf_play25" % "1.3.0"
+libraryDependencies += "eu.imind.play" %% "play-cxf_play26" % "1.3.0"
 
 libraryDependencies += "org.apache.cxf" % "cxf-rt-bindings-soap" % "3.1.2"
 
