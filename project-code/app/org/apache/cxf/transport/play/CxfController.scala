@@ -8,16 +8,22 @@ import javax.inject.{Inject, Singleton}
 
 import org.apache.cxf.message.{Message, MessageImpl}
 import org.springframework.beans.factory.FactoryBean
+//import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.iteratee.Enumerator
 import play.api.libs.iteratee.streams.IterateeStreams
 import play.api.mvc._
 
-import scala.concurrent.{ExecutionContext, Promise}
+import scala.concurrent.Promise
 import scala.collection.JavaConverters._
 
-@Singleton
-class CxfController @Inject()(implicit val ec: ExecutionContext) extends InjectedController with FactoryBean[CxfController] {
+import scala.concurrent.ExecutionContext
 
+
+@Singleton
+class CxfController extends InjectedController with FactoryBean[CxfController] {
+
+  @Inject
+  implicit var ec: ExecutionContext = null
 
   def getObjectType: Class[_ <: CxfController] = this.getClass
   def getObject: CxfController = this
