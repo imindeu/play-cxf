@@ -4,20 +4,19 @@ import java.io.{ByteArrayInputStream, InputStream, OutputStream}
 
 import akka.stream.scaladsl.Source
 import akka.util.ByteString
-import javax.inject.Singleton
+import javax.inject.{Inject, Singleton}
 
 import org.apache.cxf.message.{Message, MessageImpl}
 import org.springframework.beans.factory.FactoryBean
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.iteratee.Enumerator
 import play.api.libs.iteratee.streams.IterateeStreams
 import play.api.mvc._
 
-import scala.concurrent.Promise
+import scala.concurrent.{ExecutionContext, Promise}
 import scala.collection.JavaConverters._
 
 @Singleton
-class CxfController extends Controller with FactoryBean[CxfController] {
+class CxfController @Inject()(implicit val ec: ExecutionContext) extends InjectedController with FactoryBean[CxfController] {
 
 
   def getObjectType: Class[_ <: CxfController] = this.getClass

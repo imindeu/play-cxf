@@ -1,8 +1,10 @@
 package org.apache.cxf.transport.play
 
-import com.google.inject.{Provides, AbstractModule}
+import com.google.inject.{AbstractModule, Inject, Provides}
 
-class CxfModule extends AbstractModule {
+import scala.concurrent.ExecutionContext
+
+class CxfModule @Inject()(implicit val ec: ExecutionContext) extends AbstractModule {
   def configure():Unit = {}
 
   @Provides
@@ -11,7 +13,7 @@ class CxfModule extends AbstractModule {
 }
 
 object CxfModule {
-  val cxfController = new CxfController
+  def cxfController(implicit ec: ExecutionContext) = new CxfController
 
-  def getCxfControllerInstance = cxfController
+  def getCxfControllerInstance(implicit ec: ExecutionContext) = cxfController
 }
