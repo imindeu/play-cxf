@@ -23,7 +23,7 @@ import scala.concurrent.ExecutionContext
 class CxfController extends InjectedController with FactoryBean[CxfController] {
 
   @Inject
-  implicit var ec: ExecutionContext = null
+  private implicit var ec: ExecutionContext = null
 
   def getObjectType: Class[_ <: CxfController] = this.getClass
   def getObject: CxfController = this
