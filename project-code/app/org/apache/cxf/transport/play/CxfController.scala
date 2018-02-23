@@ -46,9 +46,8 @@ class CxfController extends InjectedController with FactoryBean[CxfController] {
     }
     replyPromise.future.map { outMessage =>
       val enumerator = resultEnumerator >>> Enumerator.eof
-      Ok.chunked(Source.fromPublisher(IterateeStreams.enumeratorToPublisher(enumerator))) withHeaders(
-        Message.CONTENT_TYPE -> outMessage.get(Message.CONTENT_TYPE).asInstanceOf[String]
-      )
+      Ok.chunked(Source.fromPublisher(IterateeStreams.enumeratorToPublisher(enumerator)))
+        .as(outMessage.get(Message.CONTENT_TYPE).asInstanceOf[String])
     }
   }
 
