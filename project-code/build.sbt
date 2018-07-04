@@ -34,7 +34,7 @@ publishArtifact in Test := false
 
 pomIncludeRepository := { _ => false }
 
-licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
 homepage := Some(url("http://www.imind.eu/web/2013/11/07/developing-soap-services-using-play-framework-2-2-x/"))
 
@@ -54,13 +54,5 @@ pomExtra :=
       <organizationUrl>http://imind.eu/</organizationUrl>
     </developer>
   </developers>
-
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("rs" at nexus + "service/local/staging/deploy/maven2")
-}
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
