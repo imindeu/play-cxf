@@ -13,3 +13,5 @@ libraryDependencies += "org.apache.cxf" % "cxf-rt-bindings-soap" % "3.1.2"
 libraryDependencies += "org.apache.cxf" % "cxf-rt-frontend-jaxws" % "3.1.2"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
+
+skip in publish := true

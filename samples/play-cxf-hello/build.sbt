@@ -15,3 +15,5 @@ libraryDependencies += "org.apache.cxf" % "cxf-rt-frontend-jaxws" % "3.1.2"
 libraryDependencies += specs2 % Test
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
+
+skip in publish := true
