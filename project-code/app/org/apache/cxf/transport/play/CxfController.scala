@@ -40,10 +40,11 @@ class CxfController extends Controller with FactoryBean[CxfController] {
       delayedOutput.setTarget(os)
     }
     replyPromise.future.map { outMessage =>
+      val httpCode = Option(outMessage.get(Message.RESPONSE_CODE)) map (_.toString) map (_.toInt) getOrElse OK
+      val contentType = outMessage.get(Message.CONTENT_TYPE).asInstanceOf[String]
+
       val enumerator = resultEnumerator >>> Enumerator.eof
-      Ok.chunked(Source.fromPublisher(Streams.enumeratorToPublisher(enumerator))) withHeaders(
-        Message.CONTENT_TYPE -> outMessage.get(Message.CONTENT_TYPE).asInstanceOf[String]
-      )
+      new Status(httpCode).chunked(Source.fromPublisher(Streams.enumeratorToPublisher(enumerator))) as contentType
     }
   }
 
