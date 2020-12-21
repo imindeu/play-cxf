@@ -10,6 +10,6 @@ def propOr(name: String, value: String): String =
   value
 
 // Use the Play sbt plugin for Play projects
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % propOr("play.version", "2.5.0"))
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % propOr("play.version", "2.5.19"))
 
 addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.5.4")
