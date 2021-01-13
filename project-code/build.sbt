@@ -14,9 +14,9 @@ organizationName := "iMind"
 
 organizationHomepage := Some(url("http://imind.eu/"))
 
-version := "1.3.0"
+version := "1.3.1-SNAPSHOT"
 
-scalaVersion := "2.12.3"
+scalaVersion := "2.12.12"
 
 libraryDependencies += guice
 
