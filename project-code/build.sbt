@@ -14,11 +14,11 @@ organizationName := "iMind"
 
 organizationHomepage := Some(url("http://imind.eu/"))
 
-version := "1.3.0"
+version := "1.3.1-SNAPSHOT"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.12"
 
-libraryDependencies += "org.springframework" % "spring-context" % "[4.3.3.RELEASE,)"
+libraryDependencies += "org.springframework" % "spring-context" % "4.2.7.RELEASE"
 
 libraryDependencies += "org.apache.cxf" % "cxf-core" % "3.1.2"
 
